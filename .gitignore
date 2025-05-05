@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Mine
+src/main/resources/application.yaml
+.DS_Store
+src/.DS_Store
