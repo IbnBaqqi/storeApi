@@ -1,10 +1,8 @@
-package com.codewithmosh.store.controllers;
+package com.salausmart.store.controllers;
 
-import com.codewithmosh.store.entities.User;
-import com.codewithmosh.store.repositories.UserRepository;
+import com.salausmart.store.dtos.UserDto;
+import com.salausmart.store.repositories.UserRepository;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,12 +19,15 @@ public class UserController {
     private final UserRepository userRepository;
 
     @GetMapping
-    public Iterable<User> getAllusers() {
-        return userRepository.findAll();
+    public Iterable<UserDto> getAllusers() {
+        return userRepository.findAll()
+                .stream()
+                .map(user -> new UserDto(user.getId(), user.getName(), user.getEmail()))
+                .toList();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id) {
+    public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
         var user = userRepository.findById(id).orElse(null);
         if (user == null) {
 //            different ways to return status code
@@ -34,6 +35,7 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
 //        return new ResponseEntity<>(user, HttpStatus.OK);
-        return ResponseEntity.ok(user);
+        var userDto = new UserDto(user.getId(), user.getName(), user.getEmail());
+        return ResponseEntity.ok(userDto);
     }
 }
