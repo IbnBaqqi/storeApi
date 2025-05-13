@@ -49,28 +49,9 @@ public class CartController {
         return ResponseEntity.ok(cartDto);
     }
 
-
     @PutMapping("/{cartId}/items/{productId}")
-    public ResponseEntity<?> updateItem(@Valid @RequestBody UpdateCartItemRequest request, @PathVariable UUID cartId, @PathVariable Long productId) {
-
-        // check if cart exist
-        var cart = cartRepository.getCartWithItems(cartId).orElse(null);
-        if (cart == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    Map.of("error", "Cart not found.")
-            );
-        // Check if product is in the cart & available
-        var productInCart = cart.getItem(productId);
-
-        if (productInCart == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    Map.of("error", "Product was not found in the cart.")
-            );
-
-        productInCart.setQuantity(request.getQuantity());
-        cartRepository.save(cart);
-        var cartItemDto = cartMapper.ToCartItemDto(productInCart);
-        return ResponseEntity.ok(cartItemDto);
+    public CartItemDto updateItem(@Valid @RequestBody UpdateCartItemRequest request, @PathVariable UUID cartId, @PathVariable Long productId) {
+        return cartService.updateItem(cartId, productId, request.getQuantity());
     }
 
     @DeleteMapping("/{cartId}/items/{productId}")

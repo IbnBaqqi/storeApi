@@ -47,4 +47,21 @@ public class CartService {
 
         return cartMapper.toCartDto(cart);
     }
+
+    public CartItemDto updateItem(UUID cartId, Long productId, Integer quantity) {
+        // check if cart exist
+        var cart = cartRepository.getCartWithItems(cartId).orElse(null);
+        if (cart == null)
+            throw new CartNotFoundException();
+
+        // Check if product is in the cart & available
+        var productInCart = cart.getItem(productId);
+
+        if (productInCart == null)
+            throw new ProductNotFoundException();
+
+        productInCart.setQuantity(quantity);
+        cartRepository.save(cart);
+        return cartMapper.ToCartItemDto(productInCart);
+    }
 }
