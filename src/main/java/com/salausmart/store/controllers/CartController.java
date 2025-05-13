@@ -44,9 +44,8 @@ public class CartController {
     }
 
     @GetMapping("/{cartId}")
-    public ResponseEntity<CartDto> getCart(@PathVariable UUID cartId) {
-        var cartDto = cartService.getCart(cartId);
-        return ResponseEntity.ok(cartDto);
+    public CartDto getCart(@PathVariable UUID cartId) {
+        return cartService.getCart(cartId);
     }
 
     @PutMapping("/{cartId}/items/{productId}")
@@ -56,17 +55,8 @@ public class CartController {
 
     @DeleteMapping("/{cartId}/items/{productId}")
     public ResponseEntity<?> removeItem( @PathVariable UUID cartId, @PathVariable Long productId) {
-        // check if cart exist
-        var cart = cartRepository.getCartWithItems(cartId).orElse(null);
-        if (cart == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    Map.of("error", "Cart not found.")
-            );
 
-        cart.removeItem(productId);
-
-        cartRepository.save(cart);
-
+        cartService.removeItem(cartId, productId);
         return ResponseEntity.noContent().build();
     }
 
