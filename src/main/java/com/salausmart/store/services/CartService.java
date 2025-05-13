@@ -8,11 +8,13 @@ import com.salausmart.store.exceptions.ProductNotFoundException;
 import com.salausmart.store.mappers.CartMapper;
 import com.salausmart.store.repositories.CartRepository;
 import com.salausmart.store.repositories.ProductRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class CartService {
     private CartRepository cartRepository;
     private CartMapper cartMapper;
@@ -72,6 +74,14 @@ public class CartService {
 
         cart.removeItem(productId);
 
+        cartRepository.save(cart);
+    }
+
+    public void clearCart(UUID cartId) {
+        var cart = cartRepository.getCartWithItems(cartId).orElse(null);
+        if (cart == null)
+            throw new CartNotFoundException();
+        cart.clear();
         cartRepository.save(cart);
     }
 }

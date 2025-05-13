@@ -6,8 +6,6 @@ import com.salausmart.store.dtos.CartItemDto;
 import com.salausmart.store.dtos.UpdateCartItemRequest;
 import com.salausmart.store.exceptions.CartNotFoundException;
 import com.salausmart.store.exceptions.ProductNotFoundException;
-import com.salausmart.store.mappers.CartMapper;
-import com.salausmart.store.repositories.CartRepository;
 import com.salausmart.store.services.CartService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -24,8 +22,6 @@ import java.util.UUID;
 @RequestMapping("/carts")
 public class CartController {
 
-    private final CartRepository cartRepository;
-    private final CartMapper cartMapper;
     private final CartService cartService;
 
     @PostMapping
@@ -62,13 +58,7 @@ public class CartController {
 
     @DeleteMapping("/{cartId}/items")
     public ResponseEntity<?> clearCart( @PathVariable UUID cartId ) {
-        var cart = cartRepository.getCartWithItems(cartId).orElse(null);
-        if (cart == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    Map.of("error", "Cart not found.")
-            );
-        cart.clear();
-        cartRepository.save(cart);
+        cartService.clearCart(cartId);
         return ResponseEntity.noContent().build();
     }
 
