@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -26,5 +27,12 @@ public class Cart {
     private LocalDate dateCreated;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.MERGE)
-    private Set<CartItem> cartItem = new HashSet<>();
+    private Set<CartItem> cartItem = new LinkedHashSet<>();
+
+    public BigDecimal getCartTotalPrice() {
+        return cartItem.
+                stream()
+                .map(CartItem::getToTalPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
 }
