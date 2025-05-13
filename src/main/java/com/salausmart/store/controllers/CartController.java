@@ -5,7 +5,6 @@ import com.salausmart.store.dtos.CartDto;
 import com.salausmart.store.dtos.CartItemDto;
 import com.salausmart.store.dtos.UpdateCartItemRequest;
 import com.salausmart.store.entities.Cart;
-import com.salausmart.store.entities.CartItem;
 import com.salausmart.store.mappers.CartMapper;
 import com.salausmart.store.repositories.CartRepository;
 import com.salausmart.store.repositories.ProductRepository;
@@ -49,20 +48,7 @@ public class CartController {
         if (product == null)
             return ResponseEntity.badRequest().build();
 
-        var cartItem = cart.getCartItem().stream()
-                .filter(item -> item.getProduct().getId().equals(product.getId()))
-                .findFirst()
-                .orElse(null);
-
-        if (cartItem != null) {
-            cartItem.setQuantity(cartItem.getQuantity() + 1);
-        } else {
-            cartItem = new CartItem();
-            cartItem.setProduct(product);
-            cartItem.setQuantity(1);
-            cartItem.setCart(cart);
-            cart.getCartItem().add(cartItem);
-        }
+        var cartItem = cart.addItem(product);
 
         cartRepository.save(cart);
         var cartItemDto = cartMapper.ToCartItemDto(cartItem);
@@ -91,11 +77,7 @@ public class CartController {
                     Map.of("error", "Cart not found.")
             );
         // Check if product is in the cart & available
-        var productInCart = cart.getCartItem()
-                .stream()
-                .filter(item -> item.getProduct().getId().equals(productId))
-                .findFirst()
-                .orElse(null);
+        var productInCart = cart.getItem(productId);
 
         if (productInCart == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
