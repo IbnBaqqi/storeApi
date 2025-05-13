@@ -40,7 +40,6 @@ public class CartController {
     @PostMapping("/{cartId}/items")
     public ResponseEntity<CartItemDto> addToCart(@RequestBody AddItemToCartRequest request, @PathVariable UUID cartId) {
         var cart = cartRepository.getCartWithItems(cartId).orElse(null);
-        System.out.println(cartId);
         if (cart == null)
             return ResponseEntity.notFound().build();
         // Check if product is available
@@ -71,7 +70,6 @@ public class CartController {
 
         // check if cart exist
         var cart = cartRepository.getCartWithItems(cartId).orElse(null);
-        System.out.println(cartId);
         if (cart == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     Map.of("error", "Cart not found.")
@@ -91,10 +89,9 @@ public class CartController {
     }
 
     @DeleteMapping("/{cartId}/items/{productId}")
-    public ResponseEntity<?> deleteItem( @PathVariable UUID cartId, @PathVariable Long productId) {
+    public ResponseEntity<?> removeItem( @PathVariable UUID cartId, @PathVariable Long productId) {
         // check if cart exist
         var cart = cartRepository.getCartWithItems(cartId).orElse(null);
-        System.out.println(cartId);
         if (cart == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     Map.of("error", "Cart not found.")
@@ -104,6 +101,18 @@ public class CartController {
 
         cartRepository.save(cart);
 
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{cartId}/items")
+    public ResponseEntity<?> clearCart( @PathVariable UUID cartId ) {
+        var cart = cartRepository.getCartWithItems(cartId).orElse(null);
+        if (cart == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of("error", "Cart not found.")
+            );
+        cart.clear();
+        cartRepository.save(cart);
         return ResponseEntity.noContent().build();
     }
 }
