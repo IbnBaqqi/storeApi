@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
 //        tell spring user is authenticated and allow access to protected resources
-        var authentication = new UsernamePasswordAuthenticationToken( jwtService.getEmailFromToken(token), null, null );
+        var authentication = new UsernamePasswordAuthenticationToken( jwtService.getUserIdFromToken(token), null, null );
 
 //        attaching additional metadata about the request like IPAddress & other stuff to the authentication object
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
