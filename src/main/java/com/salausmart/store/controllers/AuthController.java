@@ -2,6 +2,9 @@ package com.salausmart.store.controllers;
 
 import com.salausmart.store.dtos.JwtResponse;
 import com.salausmart.store.dtos.LoginRequest;
+import com.salausmart.store.dtos.UserDto;
+import com.salausmart.store.mappers.UserMapper;
+import com.salausmart.store.repositories.UserRepository;
 import com.salausmart.store.services.JwtService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -10,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
@@ -19,6 +23,8 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(@Valid @RequestBody LoginRequest request) {
@@ -29,6 +35,21 @@ public class AuthController {
         var token = jwtService.generateToken(request.getEmail());
 
         return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserDto> me() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+//        Because we set our principle to be email in jwtAuthFilter ( jwtService.getEmailFromToken(token))
+        var email = (String) authentication.getPrincipal();
+
+        var user = userRepository.findByEmail(email).orElse(null);
+        if (user == null)
+            return ResponseEntity.notFound().build();
+
+        var userDto = userMapper.toDto(user);
+
+        return ResponseEntity.ok(userDto);
     }
 
 
