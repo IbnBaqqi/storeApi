@@ -15,14 +15,25 @@ public class JwtService {
     @Value("${spring.jwt.secret}")
     private String secret;
 
-    public String generateToken(User user) {
-        final long tokenExpiration = 86400 * 1000L; // 1 day
+    public String generateAccessToken(User user) {
+        final long tokenExpiration = 300; // 5min
+
+        return generateToken(user, tokenExpiration);
+    }
+
+    public String generateRefreshToken(User user) {
+        final long tokenExpiration = 604800; // 7 days
+
+        return generateToken(user, tokenExpiration);
+    }
+
+    private String generateToken(User user, long tokenExpiration) {
         return Jwts.builder()
                 .subject(user.getId().toString())
                 .claim("email", user.getEmail())
                 .claim("name", user.getName())
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + tokenExpiration))
+                .expiration(new Date(System.currentTimeMillis() + tokenExpiration * 1000L)) //check for 1000L with chatgpt
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
                 .compact();
     }
