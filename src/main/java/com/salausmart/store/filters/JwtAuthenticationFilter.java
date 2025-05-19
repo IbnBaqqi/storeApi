@@ -28,16 +28,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+
         var token = authHeader.replace("Bearer ", "");
-        if (!jwtService.validateToken(token)) {
+        var jwt = jwtService.parseToken(token);
+        if (jwt == null || jwt.isExpired()) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        var role = jwtService.getRoleFromToken(token);
-        var userId = jwtService.getUserIdFromToken(token);
 //        tell spring user is authenticated and allow access to protected resources
-        var authentication = new UsernamePasswordAuthenticationToken( userId, null, List.of(new SimpleGrantedAuthority("ROLE_" + role)) );
+        var authentication = new UsernamePasswordAuthenticationToken(jwt.getUserId(), null, List.of(new SimpleGrantedAuthority("ROLE_" + jwt.getRole())) );
 
 //        attaching additional metadata about the request like IPAddress & other stuff to the authentication object
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
