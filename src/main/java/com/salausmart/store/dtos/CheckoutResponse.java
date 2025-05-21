@@ -1,10 +1,12 @@
 package com.salausmart.store.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class CheckoutResponse {
     private Long orderId;
+
+    public CheckoutResponse(Long orderId) {
+        this.orderId = orderId;
+    }
 }
