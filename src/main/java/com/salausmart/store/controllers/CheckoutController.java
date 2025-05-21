@@ -3,11 +3,9 @@ package com.salausmart.store.controllers;
 import com.salausmart.store.dtos.CheckoutRequest;
 import com.salausmart.store.dtos.CheckoutResponse;
 import com.salausmart.store.dtos.ErrorDto;
-import com.salausmart.store.entities.Order;
-import com.salausmart.store.repositories.CartRepository;
-import com.salausmart.store.repositories.OrderRepository;
-import com.salausmart.store.services.AuthService;
-import com.salausmart.store.services.CartService;
+import com.salausmart.store.exceptions.CartEmptyException;
+import com.salausmart.store.exceptions.CartNotFoundException;
+import com.salausmart.store.services.CheckoutService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,25 +16,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/checkout")
 public class CheckoutController {
 
-    private final CartRepository cartRepository;
-    private final OrderRepository orderRepository;
-    private final CartService cartService;
-    private final AuthService authService;
+    private final CheckoutService checkoutService;
 
     @PostMapping
-    public ResponseEntity<?> checkout(@Valid @RequestBody CheckoutRequest request) {
-        var cart = cartRepository.getCartWithItems(request.getCartId()).orElse(null);
-        if (cart == null)
-            return ResponseEntity.badRequest().body(new ErrorDto("Cart not found"));
-        if (cart.getItems().isEmpty())
-            return ResponseEntity.badRequest().body(new ErrorDto("Cart is empty"));
-
-        var order = Order.fromCart(cart, authService.getCurrentUser());
-
-        orderRepository.save(order);
-        cartService.clearCart(cart.getId());
-
-        return ResponseEntity.ok(new CheckoutResponse(order.getId()));
+    public CheckoutResponse checkout(@Valid @RequestBody CheckoutRequest request) {
+        return checkoutService.checkout(request);
     }
 
+    @ExceptionHandler({CartNotFoundException.class, CartEmptyException.class})
+    public ResponseEntity<ErrorDto> handleException(Exception e) {
+        return ResponseEntity.badRequest().body(new ErrorDto(e.getMessage()));
+    }
 }
