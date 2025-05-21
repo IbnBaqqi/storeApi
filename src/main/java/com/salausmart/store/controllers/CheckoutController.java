@@ -2,6 +2,7 @@ package com.salausmart.store.controllers;
 
 import com.salausmart.store.dtos.CheckoutRequest;
 import com.salausmart.store.dtos.CheckoutResponse;
+import com.salausmart.store.dtos.ErrorDto;
 import com.salausmart.store.entities.Order;
 import com.salausmart.store.entities.OrderItem;
 import com.salausmart.store.entities.OrderStatus;
@@ -13,8 +14,6 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @AllArgsConstructor
 @RestController
@@ -30,9 +29,9 @@ public class CheckoutController {
     public ResponseEntity<?> checkout(@Valid @RequestBody CheckoutRequest request) {
         var cart = cartRepository.getCartWithItems(request.getCartId()).orElse(null);
         if (cart == null)
-            return ResponseEntity.badRequest().body(Map.of("error","Cart not found"));
+            return ResponseEntity.badRequest().body(new ErrorDto("Cart not found"));
         if (cart.getItems().isEmpty())
-            return ResponseEntity.badRequest().body(Map.of("error","Cart is empty"));
+            return ResponseEntity.badRequest().body(new ErrorDto("Cart is empty"));
 
         var order = new Order();
         order.setTotalPrice(cart.getCartTotalPrice());
