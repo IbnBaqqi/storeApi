@@ -54,7 +54,7 @@ public class AuthController {
     @GetMapping("/me")
     public ResponseEntity<UserDto> me() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
-//        Because we set our principle to be userId in jwtAuthFilter ( jwtService.getEmailFromToken(token))
+//        Because we set our principle to be userId in jwtAuthFilter ( jwtService.getIdFromToken(token))
         var userId = (long) authentication.getPrincipal();
 
         var user = userRepository.findById(userId).orElse(null);
