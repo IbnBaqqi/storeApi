@@ -4,8 +4,6 @@ import com.salausmart.store.dtos.CheckoutRequest;
 import com.salausmart.store.dtos.CheckoutResponse;
 import com.salausmart.store.dtos.ErrorDto;
 import com.salausmart.store.entities.Order;
-import com.salausmart.store.entities.OrderItem;
-import com.salausmart.store.entities.OrderStatus;
 import com.salausmart.store.repositories.CartRepository;
 import com.salausmart.store.repositories.OrderRepository;
 import com.salausmart.store.services.AuthService;
@@ -33,20 +31,7 @@ public class CheckoutController {
         if (cart.getItems().isEmpty())
             return ResponseEntity.badRequest().body(new ErrorDto("Cart is empty"));
 
-        var order = new Order();
-        order.setTotalPrice(cart.getCartTotalPrice());
-        order.setStatus(OrderStatus.PENDING);
-        order.setCustomer(authService.getCurrentUser());
-
-        cart.getItems().forEach(item -> {
-            var orderItem = new OrderItem();
-            orderItem.setOrder(order);
-            orderItem.setProduct(item.getProduct());
-            orderItem.setQuantity(item.getQuantity());
-            orderItem.setTotalPrice(item.getToTalPrice());
-            orderItem.setUnitPrice(item.getProduct().getPrice());
-            order.getItems().add(orderItem);
-        });
+        var order = Order.fromCart(cart, authService.getCurrentUser());
 
         orderRepository.save(order);
         cartService.clearCart(cart.getId());
