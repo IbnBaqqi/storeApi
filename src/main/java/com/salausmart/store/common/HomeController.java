@@ -1,4 +1,4 @@
-package com.salausmart.store.controllers;
+package com.salausmart.store.common;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
