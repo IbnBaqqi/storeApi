@@ -1,6 +1,7 @@
 package com.salausmart.store.services;
 
 import com.salausmart.store.entities.Order;
+import com.salausmart.store.entities.OrderItem;
 import com.salausmart.store.exceptions.PaymentException;
 import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
@@ -25,18 +26,7 @@ public class StripePaymentGateway implements PaymentGateway{
                     .setCancelUrl(websiteUrl + "/checkout-cancel");
 
             order.getItems().forEach(item -> {
-                var lineItem = SessionCreateParams.LineItem.builder()
-                        .setQuantity(Long.valueOf(item.getQuantity()))
-                        .setPriceData(
-                                SessionCreateParams.LineItem.PriceData.builder() //
-                                        .setCurrency("usd")
-                                        .setUnitAmountDecimal(item.getUnitPrice().multiply(BigDecimal.valueOf(100)))
-                                        .setProductData(
-                                                SessionCreateParams.LineItem.PriceData.ProductData.builder()
-                                                        .setName(item.getProduct().getName())
-                                                        .build()
-                                        ).build()
-                        ).build();
+                final var lineItem = createLineItem(item);
                 builder.addLineItem(lineItem);
             });
             var session = Session.create(builder.build());
@@ -46,5 +36,26 @@ public class StripePaymentGateway implements PaymentGateway{
             System.out.println(ex.getMessage());
             throw new PaymentException();
         }
+    }
+
+    private SessionCreateParams.LineItem createLineItem(OrderItem item) {
+        return SessionCreateParams.LineItem.builder()
+                .setQuantity(Long.valueOf(item.getQuantity()))
+                .setPriceData(createPriceData(item))
+                .build();
+    }
+
+    private SessionCreateParams.LineItem.PriceData createPriceData(OrderItem item) {
+        return SessionCreateParams.LineItem.PriceData.builder()
+                .setCurrency("usd")
+                .setUnitAmountDecimal(item.getUnitPrice().multiply(BigDecimal.valueOf(100)))
+                .setProductData(createProductData(item))
+                .build();
+    }
+
+    private SessionCreateParams.LineItem.PriceData.ProductData createProductData(OrderItem item) {
+        return SessionCreateParams.LineItem.PriceData.ProductData.builder()
+                .setName(item.getProduct().getName())
+                .build();
     }
 }
