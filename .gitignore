@@ -33,7 +33,7 @@ build/
 .vscode/
 
 ### Mine
-src/main/resources/application.yaml
+#src/main/resources/application.yaml
 .DS_Store
 src/.DS_Store
 
