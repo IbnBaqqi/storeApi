@@ -1,6 +1,6 @@
 package com.salausmart.store.dtos;
 
-import com.salausmart.store.entities.OrderStatus;
+import com.salausmart.store.entities.PaymentStatus;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -12,7 +12,7 @@ import java.util.List;
 public class OrderDto {
 
     private Long id;
-    private OrderStatus status;
+    private PaymentStatus status;
     private LocalDateTime createdAt;
     private List<OrderItemDto> items = new ArrayList<>();
     private BigDecimal totalPrice;
