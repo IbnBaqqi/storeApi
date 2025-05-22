@@ -1,4 +1,4 @@
-package com.salausmart.store.exceptions;
+package com.salausmart.store.payments;
 
 import lombok.NoArgsConstructor;
 

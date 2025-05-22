@@ -1,4 +1,4 @@
-package com.salausmart.store.dtos;
+package com.salausmart.store.payments;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

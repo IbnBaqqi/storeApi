@@ -1,4 +1,4 @@
-package com.salausmart.store.services;
+package com.salausmart.store.payments;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

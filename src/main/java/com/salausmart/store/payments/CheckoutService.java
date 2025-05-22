@@ -1,13 +1,12 @@
-package com.salausmart.store.services;
+package com.salausmart.store.payments;
 
-import com.salausmart.store.dtos.CheckoutRequest;
-import com.salausmart.store.dtos.CheckoutResponse;
 import com.salausmart.store.entities.Order;
 import com.salausmart.store.exceptions.CartEmptyException;
 import com.salausmart.store.exceptions.CartNotFoundException;
-import com.salausmart.store.exceptions.PaymentException;
 import com.salausmart.store.repositories.CartRepository;
 import com.salausmart.store.repositories.OrderRepository;
+import com.salausmart.store.services.AuthService;
+import com.salausmart.store.services.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

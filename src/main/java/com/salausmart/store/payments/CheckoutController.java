@@ -1,13 +1,8 @@
-package com.salausmart.store.controllers;
+package com.salausmart.store.payments;
 
-import com.salausmart.store.dtos.CheckoutRequest;
-import com.salausmart.store.dtos.CheckoutResponse;
 import com.salausmart.store.dtos.ErrorDto;
 import com.salausmart.store.exceptions.CartEmptyException;
 import com.salausmart.store.exceptions.CartNotFoundException;
-import com.salausmart.store.exceptions.PaymentException;
-import com.salausmart.store.services.CheckoutService;
-import com.salausmart.store.services.WebhookRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

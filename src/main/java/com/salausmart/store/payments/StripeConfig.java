@@ -1,4 +1,4 @@
-package com.salausmart.store.config;
+package com.salausmart.store.payments;
 
 import com.stripe.Stripe;
 import jakarta.annotation.PostConstruct;
