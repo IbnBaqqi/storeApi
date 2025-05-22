@@ -14,9 +14,9 @@ import java.util.List;
 @Service
 public class OrderService {
 
-    private AuthService authService;
-    private OrderRepository orderRepository;
-    private OrderMapper orderMapper;
+    private final AuthService authService;
+    private final OrderRepository orderRepository;
+    private final OrderMapper orderMapper;
 
     public List<OrderDto> getAllOrder() {
         var user = authService.getCurrentUser();

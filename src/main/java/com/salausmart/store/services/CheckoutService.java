@@ -5,19 +5,24 @@ import com.salausmart.store.dtos.CheckoutResponse;
 import com.salausmart.store.entities.Order;
 import com.salausmart.store.exceptions.CartEmptyException;
 import com.salausmart.store.exceptions.CartNotFoundException;
+import com.salausmart.store.exceptions.PaymentException;
 import com.salausmart.store.repositories.CartRepository;
 import com.salausmart.store.repositories.OrderRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class CheckoutService {
-    private CartRepository cartRepository;
-    private OrderRepository orderRepository;
-    private AuthService authService;
-    private CartService cartService;
+    private final CartRepository cartRepository;
+    private final OrderRepository orderRepository;
+    private final AuthService authService;
+    private final CartService cartService;
+    private final PaymentGateway paymentGateway;
 
+
+    @Transactional
     public CheckoutResponse checkout(CheckoutRequest request) {
         var cart = cartRepository.getCartWithItems(request.getCartId()).orElse(null);
         if (cart == null)
@@ -28,8 +33,18 @@ public class CheckoutService {
         var order = Order.fromCart(cart, authService.getCurrentUser());
 
         orderRepository.save(order);
-        cartService.clearCart(cart.getId());
 
-        return new CheckoutResponse(order.getId());
+        // Create a checkout session
+        try {
+            var session = paymentGateway.createCheckoutSession(order);
+
+            cartService.clearCart(cart.getId());
+
+            return new CheckoutResponse(order.getId(), session.getCheckoutUrl());
+        }
+        catch (PaymentException ex) {
+            orderRepository.delete(order);
+            throw ex;
+        }
     }
 }
