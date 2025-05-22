@@ -1,6 +1,6 @@
 package com.salausmart.store.users;
 
-import com.salausmart.store.entities.Product;
+import com.salausmart.store.products.Product;
 import jakarta.persistence.*;
 import lombok.*;
 

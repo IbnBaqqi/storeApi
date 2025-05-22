@@ -1,4 +1,4 @@
-package com.salausmart.store.entities;
+package com.salausmart.store.products;
 
 import jakarta.persistence.*;
 import lombok.Getter;

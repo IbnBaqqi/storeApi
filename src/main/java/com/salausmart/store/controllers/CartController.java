@@ -5,7 +5,7 @@ import com.salausmart.store.dtos.CartDto;
 import com.salausmart.store.dtos.CartItemDto;
 import com.salausmart.store.dtos.UpdateCartItemRequest;
 import com.salausmart.store.exceptions.CartNotFoundException;
-import com.salausmart.store.exceptions.ProductNotFoundException;
+import com.salausmart.store.products.ProductNotFoundException;
 import com.salausmart.store.services.CartService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

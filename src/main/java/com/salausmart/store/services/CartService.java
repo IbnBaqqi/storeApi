@@ -4,10 +4,10 @@ import com.salausmart.store.dtos.CartDto;
 import com.salausmart.store.dtos.CartItemDto;
 import com.salausmart.store.entities.Cart;
 import com.salausmart.store.exceptions.CartNotFoundException;
-import com.salausmart.store.exceptions.ProductNotFoundException;
+import com.salausmart.store.products.ProductNotFoundException;
 import com.salausmart.store.mappers.CartMapper;
 import com.salausmart.store.repositories.CartRepository;
-import com.salausmart.store.repositories.ProductRepository;
+import com.salausmart.store.products.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

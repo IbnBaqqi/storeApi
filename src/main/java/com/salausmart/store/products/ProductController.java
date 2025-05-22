@@ -1,10 +1,5 @@
-package com.salausmart.store.controllers;
+package com.salausmart.store.products;
 
-import com.salausmart.store.dtos.ProductDto;
-import com.salausmart.store.entities.Product;
-import com.salausmart.store.mappers.ProductMapper;
-import com.salausmart.store.repositories.CategoryRepository;
-import com.salausmart.store.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

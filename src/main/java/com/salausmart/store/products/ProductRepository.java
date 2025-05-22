@@ -1,6 +1,5 @@
-package com.salausmart.store.repositories;
+package com.salausmart.store.products;
 
-import com.salausmart.store.entities.Product;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

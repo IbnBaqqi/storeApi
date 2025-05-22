@@ -1,4 +1,4 @@
-package com.salausmart.store.exceptions;
+package com.salausmart.store.products;
 
 public class ProductNotFoundException extends RuntimeException{
 }
