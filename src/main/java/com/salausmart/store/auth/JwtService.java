@@ -1,6 +1,5 @@
-package com.salausmart.store.services;
+package com.salausmart.store.auth;
 
-import com.salausmart.store.config.JwtConfig;
 import com.salausmart.store.users.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;

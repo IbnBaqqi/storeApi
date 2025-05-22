@@ -1,5 +1,6 @@
 package com.salausmart.store.services;
 
+import com.salausmart.store.auth.AuthService;
 import com.salausmart.store.dtos.OrderDto;
 import com.salausmart.store.exceptions.OrderNotFoundException;
 import com.salausmart.store.mappers.OrderMapper;

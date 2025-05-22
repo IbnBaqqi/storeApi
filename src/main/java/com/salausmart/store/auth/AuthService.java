@@ -1,4 +1,4 @@
-package com.salausmart.store.services;
+package com.salausmart.store.auth;
 
 import com.salausmart.store.users.User;
 import com.salausmart.store.users.UserRepository;

@@ -5,7 +5,7 @@ import com.salausmart.store.exceptions.CartEmptyException;
 import com.salausmart.store.exceptions.CartNotFoundException;
 import com.salausmart.store.repositories.CartRepository;
 import com.salausmart.store.repositories.OrderRepository;
-import com.salausmart.store.services.AuthService;
+import com.salausmart.store.auth.AuthService;
 import com.salausmart.store.services.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

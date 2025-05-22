@@ -1,4 +1,4 @@
-package com.salausmart.store.config;
+package com.salausmart.store.auth;
 
 import io.jsonwebtoken.security.Keys;
 import lombok.Data;

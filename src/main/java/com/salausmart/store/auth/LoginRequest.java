@@ -1,4 +1,4 @@
-package com.salausmart.store.dtos;
+package com.salausmart.store.auth;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

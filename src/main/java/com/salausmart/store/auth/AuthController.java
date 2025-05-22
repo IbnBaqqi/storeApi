@@ -1,12 +1,8 @@
-package com.salausmart.store.controllers;
+package com.salausmart.store.auth;
 
-import com.salausmart.store.config.JwtConfig;
-import com.salausmart.store.dtos.JwtResponse;
-import com.salausmart.store.dtos.LoginRequest;
 import com.salausmart.store.users.UserDto;
 import com.salausmart.store.users.UserMapper;
 import com.salausmart.store.users.UserRepository;
-import com.salausmart.store.services.JwtService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;

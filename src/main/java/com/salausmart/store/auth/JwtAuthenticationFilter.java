@@ -1,6 +1,5 @@
-package com.salausmart.store.filters;
+package com.salausmart.store.auth;
 
-import com.salausmart.store.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
