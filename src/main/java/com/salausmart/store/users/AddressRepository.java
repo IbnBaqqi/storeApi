@@ -1,6 +1,5 @@
-package com.salausmart.store.repositories;
+package com.salausmart.store.users;
 
-import com.salausmart.store.entities.Address;
 import org.springframework.data.repository.CrudRepository;
 
 public interface AddressRepository extends CrudRepository<Address, Long> {

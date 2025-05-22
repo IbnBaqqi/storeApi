@@ -1,9 +1,5 @@
-package com.salausmart.store.mappers;
+package com.salausmart.store.users;
 
-import com.salausmart.store.dtos.RegisterUserRequest;
-import com.salausmart.store.dtos.UpdateUserRequest;
-import com.salausmart.store.dtos.UserDto;
-import com.salausmart.store.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 

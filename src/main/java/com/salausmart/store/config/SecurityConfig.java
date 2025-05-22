@@ -1,6 +1,6 @@
 package com.salausmart.store.config;
 
-import com.salausmart.store.entities.Role;
+import com.salausmart.store.users.Role;
 import com.salausmart.store.filters.JwtAuthenticationFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;

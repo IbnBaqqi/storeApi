@@ -1,4 +1,4 @@
-package com.salausmart.store.validation;
+package com.salausmart.store.users;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

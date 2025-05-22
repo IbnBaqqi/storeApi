@@ -1,6 +1,5 @@
-package com.salausmart.store.services;
+package com.salausmart.store.users;
 
-import com.salausmart.store.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

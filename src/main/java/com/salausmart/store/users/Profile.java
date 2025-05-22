@@ -1,4 +1,4 @@
-package com.salausmart.store.entities;
+package com.salausmart.store.users;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,7 +8,6 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Getter
 @Setter
 @Entity

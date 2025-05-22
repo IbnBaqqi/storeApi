@@ -1,4 +1,4 @@
-package com.salausmart.store.validation;
+package com.salausmart.store.users;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

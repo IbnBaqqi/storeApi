@@ -1,6 +1,6 @@
 package com.salausmart.store.services;
 
-import com.salausmart.store.entities.Role;
+import com.salausmart.store.users.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 

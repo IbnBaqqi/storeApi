@@ -1,4 +1,4 @@
-package com.salausmart.store.dtos;
+package com.salausmart.store.users;
 
 import lombok.Data;
 
