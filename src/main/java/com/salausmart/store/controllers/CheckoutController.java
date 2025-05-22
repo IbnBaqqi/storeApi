@@ -3,11 +3,14 @@ package com.salausmart.store.controllers;
 import com.salausmart.store.dtos.CheckoutRequest;
 import com.salausmart.store.dtos.CheckoutResponse;
 import com.salausmart.store.dtos.ErrorDto;
+import com.salausmart.store.entities.OrderStatus;
 import com.salausmart.store.exceptions.CartEmptyException;
 import com.salausmart.store.exceptions.CartNotFoundException;
 import com.salausmart.store.exceptions.PaymentException;
+import com.salausmart.store.repositories.OrderRepository;
 import com.salausmart.store.services.CheckoutService;
 import com.stripe.exception.SignatureVerificationException;
+import com.stripe.model.PaymentIntent;
 import com.stripe.net.Webhook;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 public class CheckoutController {
 
     private final CheckoutService checkoutService;
+    private final OrderRepository orderRepository;
 
     @Value("${stripe.webhookSecretKey}")
     private String webhookSecretKey;
@@ -37,7 +41,7 @@ public class CheckoutController {
             @RequestBody String payload) {
         try {
             var event = Webhook.constructEvent(payload, signature, webhookSecretKey);
-            System.out.println(event.getType());
+            System.out.println(event.getType()); //webhook testing
 
             var stripeObject = event.getDataObjectDeserializer().getObject().orElse(null);
             // charge -> (Charge) stripeObject
@@ -45,7 +49,13 @@ public class CheckoutController {
 
             switch (event.getType()) {
                 case "payment_intent.succeeded" -> {
-                    // update order status (PAID)
+                    var paymentIntent = (PaymentIntent) stripeObject;
+                    if (paymentIntent != null) {
+                        var order_id = paymentIntent.getMetadata().get("order_id");
+                        var order = orderRepository.findById(Long.valueOf(order_id)).orElseThrow();
+                        order.setStatus(OrderStatus.PAID);
+                        orderRepository.save(order);
+                    }
                 }
                 case "payment_intent.failed" -> {
                     // update order status (FAILED)
