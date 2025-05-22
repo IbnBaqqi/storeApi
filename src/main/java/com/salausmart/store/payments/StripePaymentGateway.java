@@ -1,8 +1,8 @@
 package com.salausmart.store.payments;
 
-import com.salausmart.store.entities.Order;
-import com.salausmart.store.entities.OrderItem;
-import com.salausmart.store.entities.PaymentStatus;
+import com.salausmart.store.orders.Order;
+import com.salausmart.store.orders.OrderItem;
+import com.salausmart.store.orders.PaymentStatus;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Event;

@@ -1,10 +1,6 @@
-package com.salausmart.store.services;
+package com.salausmart.store.orders;
 
 import com.salausmart.store.auth.AuthService;
-import com.salausmart.store.dtos.OrderDto;
-import com.salausmart.store.exceptions.OrderNotFoundException;
-import com.salausmart.store.mappers.OrderMapper;
-import com.salausmart.store.repositories.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;

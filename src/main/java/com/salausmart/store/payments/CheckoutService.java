@@ -1,10 +1,10 @@
 package com.salausmart.store.payments;
 
-import com.salausmart.store.entities.Order;
+import com.salausmart.store.orders.Order;
 import com.salausmart.store.carts.CartEmptyException;
 import com.salausmart.store.carts.CartNotFoundException;
 import com.salausmart.store.carts.CartRepository;
-import com.salausmart.store.repositories.OrderRepository;
+import com.salausmart.store.orders.OrderRepository;
 import com.salausmart.store.auth.AuthService;
 import com.salausmart.store.carts.CartService;
 import lombok.RequiredArgsConstructor;

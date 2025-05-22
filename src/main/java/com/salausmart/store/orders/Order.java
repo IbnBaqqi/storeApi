@@ -1,4 +1,4 @@
-package com.salausmart.store.entities;
+package com.salausmart.store.orders;
 
 import com.salausmart.store.carts.Cart;
 import com.salausmart.store.users.User;

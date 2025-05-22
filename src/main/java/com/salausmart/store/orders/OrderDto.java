@@ -1,6 +1,5 @@
-package com.salausmart.store.dtos;
+package com.salausmart.store.orders;
 
-import com.salausmart.store.entities.PaymentStatus;
 import lombok.Data;
 
 import java.math.BigDecimal;

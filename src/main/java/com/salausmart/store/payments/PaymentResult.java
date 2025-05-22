@@ -1,6 +1,6 @@
 package com.salausmart.store.payments;
 
-import com.salausmart.store.entities.PaymentStatus;
+import com.salausmart.store.orders.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

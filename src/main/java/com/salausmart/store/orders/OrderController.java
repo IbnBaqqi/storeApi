@@ -1,9 +1,6 @@
-package com.salausmart.store.controllers;
+package com.salausmart.store.orders;
 
 import com.salausmart.store.dtos.ErrorDto;
-import com.salausmart.store.dtos.OrderDto;
-import com.salausmart.store.exceptions.OrderNotFoundException;
-import com.salausmart.store.services.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

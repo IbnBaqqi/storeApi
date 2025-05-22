@@ -1,6 +1,6 @@
 package com.salausmart.store.payments;
 
-import com.salausmart.store.entities.Order;
+import com.salausmart.store.orders.Order;
 
 import java.util.Optional;
 
