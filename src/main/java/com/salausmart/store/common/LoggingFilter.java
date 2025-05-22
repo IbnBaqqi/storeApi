@@ -1,4 +1,4 @@
-package com.salausmart.store.filters;
+package com.salausmart.store.common;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

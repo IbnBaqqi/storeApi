@@ -1,6 +1,6 @@
 package com.salausmart.store.payments;
 
-import com.salausmart.store.dtos.ErrorDto;
+import com.salausmart.store.common.ErrorDto;
 import com.salausmart.store.carts.CartEmptyException;
 import com.salausmart.store.carts.CartNotFoundException;
 import jakarta.validation.Valid;

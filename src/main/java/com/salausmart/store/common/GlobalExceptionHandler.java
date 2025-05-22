@@ -1,6 +1,5 @@
-package com.salausmart.store.controllers;
+package com.salausmart.store.common;
 
-import com.salausmart.store.dtos.ErrorDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;

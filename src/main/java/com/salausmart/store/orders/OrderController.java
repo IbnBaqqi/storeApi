@@ -1,6 +1,6 @@
 package com.salausmart.store.orders;
 
-import com.salausmart.store.dtos.ErrorDto;
+import com.salausmart.store.common.ErrorDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
