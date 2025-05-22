@@ -1,8 +1,8 @@
 package com.salausmart.store.payments;
 
 import com.salausmart.store.dtos.ErrorDto;
-import com.salausmart.store.exceptions.CartEmptyException;
-import com.salausmart.store.exceptions.CartNotFoundException;
+import com.salausmart.store.carts.CartEmptyException;
+import com.salausmart.store.carts.CartNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

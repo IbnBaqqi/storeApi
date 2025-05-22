@@ -1,4 +1,4 @@
-package com.salausmart.store.exceptions;
+package com.salausmart.store.carts;
 
 public class CartNotFoundException extends RuntimeException {
     public CartNotFoundException() {

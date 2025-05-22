@@ -1,9 +1,5 @@
-package com.salausmart.store.mappers;
+package com.salausmart.store.carts;
 
-import com.salausmart.store.dtos.CartDto;
-import com.salausmart.store.dtos.CartItemDto;
-import com.salausmart.store.entities.Cart;
-import com.salausmart.store.entities.CartItem;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

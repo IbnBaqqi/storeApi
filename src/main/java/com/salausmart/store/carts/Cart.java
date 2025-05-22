@@ -1,4 +1,4 @@
-package com.salausmart.store.entities;
+package com.salausmart.store.carts;
 
 import com.salausmart.store.products.Product;
 import jakarta.persistence.*;

@@ -1,5 +1,6 @@
 package com.salausmart.store.entities;
 
+import com.salausmart.store.carts.Cart;
 import com.salausmart.store.users.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
